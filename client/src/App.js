@@ -20,16 +20,16 @@ const client = new ApolloClient({
   },
   uri: '/graphql'
 })
-
+const loggedIn = Auth.loggedIn()
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         <div className='flex-column justify-flex-start min-100-vh'>
-          <Header loggedIn={Auth.loggedIn()} logout={Auth.logout}/>
+          <Header loggedIn={loggedIn} logout={Auth.logout}/>
           <div className='container'>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" render={props => <Home {...props} loggedIn={loggedIn}/>}/>
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/profile/:username?" component={Profile} />
