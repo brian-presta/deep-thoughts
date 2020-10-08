@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/react-hooks';
 import React, { useState } from 'react';
 import { LOGIN_USER } from '../utils/mutations';
+import Auth from '../utils/auth'
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -26,7 +27,7 @@ const Login = (props) => {
     });
     try {
       const { data } = await login({variables})
-      console.log(data)
+      Auth.login(data.login.token)
     }
     catch(err) {
       console.error(err)
